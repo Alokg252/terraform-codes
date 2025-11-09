@@ -1,0 +1,10 @@
+# aws iam users
+users:
+  - username: alokg252@bb
+    roles: [AdministratorAccess] # aws full access
+
+  - username: ak67@bb
+    roles: [AmazonEC2FullAccess] # ec2 full access
+
+  - username: akg@bb
+    roles: [AmazonS3ReadOnlyAccess, AmazonEC2ReadOnlyAccess]   # s3, ec2 read-only access

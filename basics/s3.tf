@@ -18,7 +18,7 @@ resource "aws_s3_bucket_public_access_block" "block_public_access" {
 // bucket policy to allow public access
 resource "aws_s3_bucket_policy" "bucket_policy" {
   bucket = aws_s3_bucket.mybucket.id
-  policy = jsondecode(
+  policy = jsonencode(
     {
         Version = "2012-10-17",
         Statement = [
@@ -30,7 +30,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
                     "s3:GetObject"
                 ],
                 Resource = [
-                    "arn:aws:s3:::${var.bucket_name}/*"
+                    "arn:aws:s3:::${aws_s3_bucket.mybucket.id}/*"
                 ]
             }
         ]
@@ -53,7 +53,7 @@ resource "aws_s3_bucket_website_configuration" "mywebapp" {
 }
 
 // upload index file to s3
-resource "aws_s3_object" "bucket_object" {
+resource "aws_s3_object" "bucket_object-index-html" {
     bucket = aws_s3_bucket.mybucket.id // bucket name
     source = "./data/index.html" // file path in local
     key = "index.html" // file name in s3 
@@ -61,7 +61,7 @@ resource "aws_s3_object" "bucket_object" {
 }
 
 // upload error file to s3
-resource "aws_s3_object" "bucket_object" {
+resource "aws_s3_object" "bucket_object-error-html" {
     bucket = aws_s3_bucket.mybucket.id // bucket name
     source = "./data/error.html" // file path in local
     key = "error.html" // file name in s3 
@@ -69,7 +69,7 @@ resource "aws_s3_object" "bucket_object" {
 }
 
 // upload css file to s3
-resource "aws_s3_object" "bucket_object" {
+resource "aws_s3_object" "bucket_object-style-css" {
     bucket = aws_s3_bucket.mybucket.id // bucket name
     source = "./data/style.css" // file path in local
     key = "style.css" // file name in s3 

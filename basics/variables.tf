@@ -13,7 +13,8 @@ variable "instance_type" {
 }
 
 variable "bucket_name" {
-  default = "mybucket-${random_id.rand_id.hex}"
+  # default = "mybucket-${random_id.rand_id.hex}" # this will create unique bucket name (not working)
+  default = "mybucket-tf-67"
   type = string
   description = "bucket name"
 }
